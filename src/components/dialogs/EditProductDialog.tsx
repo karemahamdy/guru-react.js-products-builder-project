@@ -69,13 +69,20 @@ const EditProductDialog = ({
   console.log(form.formState.errors);
 
   const onSubmit = (values: z.infer<typeof productFormSchema>) => {
-    console.log(values);
-    return;
+    // Update the selected product with the new values from the form
+    const updatedProduct = { ...selectedProduct, ...values };
+  
+    // Create a copy of the product list and update the selected product
     const updatedProductList = [...productList];
-    updatedProductList[selectedProductIdx] = { ...selectedProduct };
+    updatedProductList[selectedProductIdx] = updatedProduct;
+  
+    // Update the state with the new product list
     setProductList(updatedProductList);
+  
+    // Close the dialog
     setOpen(false);
   };
+  
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
